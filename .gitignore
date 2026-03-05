@@ -2,4 +2,4 @@
 __pycache__/
 *.png
 *.csv
-.vscode/
+.vscode/git push -u origin main

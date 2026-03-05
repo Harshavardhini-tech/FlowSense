@@ -81,13 +81,15 @@ def train_model():
 with st.spinner("Loading and training model..."):
     df, test, model, mae, rmse, mape, X_test, FEATURES = train_model()
 
-# ── KPIs ───────────────────────────────────────────────
-st.subheader("📊 Historical Overview")
+# ── YOUR BUSINESS OVERVIEW ─────────────────────────────
+last_7_values = [r["y"] for r in user_inputs]
+st.subheader("📊 Your Business Overview")
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Avg Daily Revenue", f"₹{df['y'].mean():,.0f}")
-col2.metric("Max Revenue Day",   f"₹{df['y'].max():,.0f}")
-col3.metric("Min Revenue Day",   f"₹{df['y'].min():,.0f}")
-col4.metric("Model Accuracy",    f"{100 - mape:.1f}%")
+col1.metric("Your 7-Day Avg",   f"₹{np.mean(last_7_values):,.0f}")
+col2.metric("Your Best Day",    f"₹{max(last_7_values):,.0f}")
+col3.metric("Your Worst Day",   f"₹{min(last_7_values):,.0f}")
+col4.metric("Model Accuracy",   f"{100 - mape:.1f}%")
+st.caption("📅 Model trained on MSME data from Jan 2023 – Dec 2024. For production use, connect your live data source.")
 
 # ── MODEL PERFORMANCE ──────────────────────────────────
 with st.expander("📈 Model Performance Details"):
