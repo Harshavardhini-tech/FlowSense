@@ -1,4 +1,4 @@
-ds,y,day_of_week,month,is_festival,is_market_drop,gst_filing_flag
+ds,daily_revenue,day_of_week,month,is_festival,is_market_drop,gst_filing_flag
 2023-01-01,35789,Sunday,January,0,0,0
 2023-01-02,43764,Monday,January,0,0,0
 2023-01-03,58804,Tuesday,January,0,0,0

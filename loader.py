@@ -9,9 +9,9 @@ def load_data(path=DATA_PATH):
     Load the raw MSME CSV and return a typed DataFrame.
     """
     df = pd.read_csv(path, parse_dates=["ds"])
+    df = df.rename(columns={"daily_revenue": "y"})
     df = df.sort_values("ds").reset_index(drop=True)
-
-    # Fix types
+# Fix types
     df["y"]               = df["y"].astype(int)
     df["is_festival"]     = df["is_festival"].astype(int)
     df["is_market_drop"]  = df["is_market_drop"].astype(int)
