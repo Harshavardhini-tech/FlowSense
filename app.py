@@ -124,6 +124,24 @@ st.markdown("""
 with st.sidebar:
     st.markdown("## 📋 Enter Your Business Data")
     st.markdown("---")
+    st.markdown("### 📂 Upload Your Own Data (Optional)")
+    uploaded_file = st.file_uploader(
+        "Upload CSV with your revenue history",
+        type="csv",
+        help="CSV must have 'ds' (date) and 'daily_revenue' columns. Minimum 30 days."
+    )
+    if uploaded_file:
+        try:
+            uploaded_df = pd.read_csv(uploaded_file, parse_dates=["ds"])
+            uploaded_df = uploaded_df.rename(columns={"daily_revenue": "y"})
+            for col in ["is_festival", "is_market_drop", "gst_filing_flag"]:
+                if col not in uploaded_df.columns:
+                    uploaded_df[col] = 0
+            st.success(f"✅ Loaded {len(uploaded_df)} rows of your data!")
+        except Exception as e:
+            st.error(f"❌ Error: Make sure columns are 'ds' and 'daily_revenue'")
+            uploaded_file = None
+    st.markdown("---")
     st.markdown("### 💵 Recent Revenue (Last 7 Days)")
     st.caption("Enter daily revenue in ₹")
 
